@@ -3,9 +3,8 @@
     <form @submit.prevent="handleSubmit" class="d-flex flex-column flex-auto">
       <h3 class="m-4 mb-0 text-center">Confirm vote</h3>
       <h4 class="m-4 mb-0 text-center">
-        Are you sure you want to vote "{{
-          proposal.msg.payload.choices[selectedChoice - 1]
-        }}"? <br />This action <b>cannot</b> be undone.
+        Are you sure you want to vote "{{ proposal.msg.payload.choices[selectedChoice - 1] }}"?
+        <br />This action <b>cannot</b> be undone.
       </h4>
       <div class="m-4 p-4 border rounded-2 text-white">
         <div class="d-flex">
@@ -15,9 +14,7 @@
         <div class="d-flex">
           <span v-text="'Snapshot'" class="flex-auto text-gray mr-1" />
           <a
-            :href="
-              _explorer(space.network, proposal.msg.payload.snapshot, 'block')
-            "
+            :href="_explorer(space.network, proposal.msg.payload.snapshot, 'block')"
             target="_blank"
             class="float-right"
           >
@@ -30,9 +27,7 @@
           <span
             class="tooltipped tooltipped-nw"
             :aria-label="
-              scores
-                .map((score, index) => `${_numeral(score)} ${symbols[index]}`)
-                .join(' + ')
+              scores.map((score, index) => `${_numeral(score)} ${symbols[index]}`).join(' + ')
             "
           >
             {{ _numeral(scores.reduce((a, b) => a + b, 0)) }}
@@ -42,9 +37,7 @@
       </div>
       <div class="p-4 overflow-hidden text-center border-top">
         <div class="col-6 float-left pr-2">
-          <UiButton @click="$emit('close')" type="button" class="width-full">
-            Cancel
-          </UiButton>
+          <UiButton @click="$emit('close')" type="button" class="width-full"> Cancel </UiButton>
         </div>
         <div class="col-6 float-left pl-2">
           <UiButton
@@ -65,25 +58,16 @@
 import { mapActions } from 'vuex';
 
 export default {
-  props: [
-    'open',
-    'space',
-    'proposal',
-    'id',
-    'selectedChoice',
-    'snapshot',
-    'totalScore',
-    'scores'
-  ],
+  props: ['open', 'space', 'proposal', 'id', 'selectedChoice', 'snapshot', 'totalScore', 'scores'],
   data() {
     return {
-      loading: false
+      loading: false,
     };
   },
   computed: {
     symbols() {
-      return this.space.strategies.map(strategy => strategy.params.symbol);
-    }
+      return this.space.strategies.map((strategy) => strategy.params.symbol);
+    },
   },
   methods: {
     ...mapActions(['send']),
@@ -95,13 +79,13 @@ export default {
         payload: {
           proposal: this.id,
           choice: this.selectedChoice,
-          metadata: {}
-        }
+          metadata: {},
+        },
       });
       this.$emit('reload');
       this.$emit('close');
       this.loading = false;
-    }
-  }
+    },
+  },
 };
 </script>

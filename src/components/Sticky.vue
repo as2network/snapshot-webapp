@@ -1,11 +1,7 @@
 <template>
   <div>
     <div v-if="isFixed" :style="`height: ${offsetHeight}px;`" />
-    <div
-      style="z-index: 20;"
-      id="sticky"
-      :class="{ 'position-fixed width-full top-0': isFixed }"
-    >
+    <div style="z-index: 20" id="sticky" :class="{ 'position-fixed width-full top-0': isFixed }">
       <slot />
     </div>
   </div>
@@ -18,7 +14,7 @@ export default {
     return {
       isFixed: false,
       offsetTop: -1,
-      offsetHeight: 0
+      offsetHeight: 0,
     };
   },
   mounted() {
@@ -37,7 +33,7 @@ export default {
       if (this.isSticky === false) return;
       const windowTop = e.target.documentElement.scrollTop;
       this.isFixed = windowTop >= this.offsetTop;
-    }
-  }
+    },
+  },
 };
 </script>

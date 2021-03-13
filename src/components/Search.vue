@@ -28,7 +28,7 @@ export default {
     clearInput() {
       this.$router.push({});
       this.$emit('input', '');
-    }
-  }
+    },
+  },
 };
 </script>

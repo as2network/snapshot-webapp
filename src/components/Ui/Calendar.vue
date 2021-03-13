@@ -1,15 +1,9 @@
 <template>
   <div class="calendar">
     <div class="mb-2 d-flex">
-      <a
-        class="col-3 iconfont iconback text-left h3 text-gray"
-        @click="month--"
-      />
+      <a class="col-3 iconfont iconback text-left h3 text-gray" @click="month--" />
       <h4 class="mb-3 flex-auto text-center">{{ monthName }} {{ year }}</h4>
-      <a
-        class="col-3 iconfont icongo text-right h3 text-gray"
-        @click="month++"
-      />
+      <a class="col-3 iconfont icongo text-right h3 text-gray" @click="month++" />
     </div>
     <div class="border-left border-top overflow-hidden">
       <div
@@ -28,7 +22,7 @@
           class="day border-bottom border-right selectable"
           :class="{
             'bg-gray-dark': formatDate(year, month, day) === today,
-            selected: input.includes(formatDate(year, month, day))
+            selected: input.includes(formatDate(year, month, day)),
           }"
           v-if="isSelectable(year, month, day)"
           v-text="day"
@@ -48,33 +42,26 @@ export default {
       input: '',
       month: new Date().getMonth(),
       year: new Date().getFullYear(),
-      day: new Date().getDate()
+      day: new Date().getDate(),
     };
   },
   computed: {
     today() {
-      return this.formatDate(
-        new Date().getFullYear(),
-        new Date().getMonth(),
-        new Date().getDate()
-      );
+      return this.formatDate(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
     },
     daysOfWeek() {
       const sunday = new Date(2017, 0, 0);
       return [...Array(7)].map(() => {
         sunday.setDate(sunday.getDate() + 1);
         return sunday.toLocaleDateString(this.$i18n.locale, {
-          weekday: 'short'
+          weekday: 'short',
         });
       });
     },
     monthName() {
-      const name = new Date(this.year, this.month).toLocaleString(
-        this.$i18n.locale,
-        {
-          month: 'long'
-        }
-      );
+      const name = new Date(this.year, this.month).toLocaleString(this.$i18n.locale, {
+        month: 'long',
+      });
       return `${name.charAt(0).toUpperCase()}${name.slice(1)}`;
     },
     days() {
@@ -82,7 +69,7 @@ export default {
     },
     emptyDays() {
       return new Date(this.year, this.month, 1).getDay();
-    }
+    },
   },
   methods: {
     formatDate(year, month, day) {
@@ -102,8 +89,8 @@ export default {
         new Date(year, month, day) < in30Days
       );
       */
-    }
-  }
+    },
+  },
 };
 </script>
 

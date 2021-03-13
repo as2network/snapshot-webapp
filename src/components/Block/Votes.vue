@@ -20,19 +20,12 @@
         <span
           class="tooltipped tooltipped-n"
           :aria-label="
-            vote.scores
-              .map((score, index) => `${_numeral(score)} ${titles[index]}`)
-              .join(' + ')
+            vote.scores.map((score, index) => `${_numeral(score)} ${titles[index]}`).join(' + ')
           "
         >
           {{ `${_numeral(vote.balance)} ${_shorten(space.symbol, 'symbol')}` }}
         </span>
-        <a
-          @click="openReceiptModal(vote)"
-          target="_blank"
-          class="ml-2 text-gray"
-          title="Receipt"
-        >
+        <a @click="openReceiptModal(vote)" target="_blank" class="ml-2 text-gray" title="Receipt">
           <Icon name="signature" />
         </a>
       </div>
@@ -63,7 +56,7 @@ export default {
       showAllVotes: false,
       authorIpfsHash: '',
       relayerIpfsHash: '',
-      modalReceiptOpen: false
+      modalReceiptOpen: false,
     };
   },
   computed: {
@@ -73,15 +66,15 @@ export default {
         : Object.fromEntries(Object.entries(this.votes).slice(0, 10));
     },
     titles() {
-      return this.space.strategies.map(strategy => strategy.params.symbol);
-    }
+      return this.space.strategies.map((strategy) => strategy.params.symbol);
+    },
   },
   methods: {
     openReceiptModal(vote) {
       this.authorIpfsHash = vote.authorIpfsHash;
       this.relayerIpfsHash = vote.relayerIpfsHash;
       this.modalReceiptOpen = true;
-    }
-  }
+    },
+  },
 };
 </script>

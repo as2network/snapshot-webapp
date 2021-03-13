@@ -1,10 +1,7 @@
 <template>
   <Container :slim="true">
     <div class="px-4 px-md-0 mb-3">
-      <router-link
-        :to="{ name: domain ? 'home' : 'proposals' }"
-        class="text-gray"
-      >
+      <router-link :to="{ name: domain ? 'home' : 'proposals' }" class="text-gray">
         <Icon name="back" size="22" class="v-align-middle" />
         {{ space.name }}
       </router-link>
@@ -40,11 +37,7 @@
           <div v-if="choices.length > 0" class="overflow-hidden mb-2">
             <draggable v-model="choices">
               <transition-group name="list">
-                <div
-                  v-for="(choice, i) in choices"
-                  :key="choice.key"
-                  class="d-flex mb-2"
-                >
+                <div v-for="(choice, i) in choices" :key="choice.key" class="d-flex mb-2">
                   <UiButton class="d-flex width-full">
                     <span class="mr-4">{{ i + 1 }}</span>
                     <input
@@ -59,19 +52,13 @@
               </transition-group>
             </draggable>
           </div>
-          <UiButton @click="addChoice(1)" class="d-block width-full">
-            Add choice
-          </UiButton>
+          <UiButton @click="addChoice(1)" class="d-block width-full"> Add choice </UiButton>
         </Block>
       </div>
       <div class="col-12 col-lg-4 float-left">
         <Block
           title="Actions"
-          :icon="
-            space.plugins && Object.keys(space.plugins).length > 0
-              ? 'stars'
-              : undefined
-          "
+          :icon="space.plugins && Object.keys(space.plugins).length > 0 ? 'stars' : undefined"
           @submit="modalPluginsOpen = true"
         >
           <div class="mb-2">
@@ -82,10 +69,7 @@
               <span v-if="!form.start">Select start date</span>
               <span v-else v-text="$d(form.start * 1e3, 'short')" />
             </UiButton>
-            <UiButton
-              @click="[(modalOpen = true), (selectedDate = 'end')]"
-              class="width-full mb-2"
-            >
+            <UiButton @click="[(modalOpen = true), (selectedDate = 'end')]" class="width-full mb-2">
               <span v-if="!form.end">Select end date</span>
               <span v-else v-text="$d(form.end * 1e3, 'short')" />
             </UiButton>
@@ -140,7 +124,7 @@ const gateway = process.env.VUE_APP_IPFS_NODE || 'ipfs.io';
 
 export default {
   components: {
-    draggable
+    draggable,
   },
   data() {
     return {
@@ -157,12 +141,12 @@ export default {
         start: '',
         end: '',
         snapshot: '',
-        metadata: {}
+        metadata: {},
       },
       modalOpen: false,
       modalPluginsOpen: false,
       selectedDate: '',
-      counter: 0
+      counter: 0,
     };
   },
   computed: {
@@ -184,9 +168,9 @@ export default {
         this.form.snapshot &&
         this.form.snapshot > this.blockNumber / 2 &&
         this.choices.length >= 2 &&
-        !this.choices.some(a => a.text === '')
+        !this.choices.some((a) => a.text === '')
       );
-    }
+    },
   },
   async mounted() {
     this.addChoice(2);
@@ -221,26 +205,26 @@ export default {
     },
     async handleSubmit() {
       this.loading = true;
-      this.form.choices = this.choices.map(choice => choice.text);
+      this.form.choices = this.choices.map((choice) => choice.text);
       try {
         const { ipfsHash } = await this.send({
           space: this.space.key,
           type: 'proposal',
-          payload: this.form
+          payload: this.form,
         });
         this.$router.push({
           name: 'proposal',
           params: {
             key: this.key,
-            id: ipfsHash
-          }
+            id: ipfsHash,
+          },
         });
       } catch (e) {
         console.error(e);
         this.loading = false;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

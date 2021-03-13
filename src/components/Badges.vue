@@ -11,12 +11,12 @@ export default {
   computed: {
     isCore() {
       if (!this.space || !this.space.members) return false;
-      const members = this.space.members.map(address => address.toLowerCase());
+      const members = this.space.members.map((address) => address.toLowerCase());
       return members.includes(this.address.toLowerCase());
     },
     isVerified() {
       return false;
-    }
-  }
+    },
+  },
 };
 </script>

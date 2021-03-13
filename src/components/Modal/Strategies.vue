@@ -22,9 +22,7 @@
           <span
             v-else
             v-text="
-              ['string', 'number', 'boolean'].includes(typeof option)
-                ? option
-                : typeof option
+              ['string', 'number', 'boolean'].includes(typeof option) ? option : typeof option
             "
           />
         </div>
@@ -35,6 +33,6 @@
 
 <script>
 export default {
-  props: ['open', 'strategies', 'space']
+  props: ['open', 'strategies', 'space'],
 };
 </script>

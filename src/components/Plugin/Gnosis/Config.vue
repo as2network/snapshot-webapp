@@ -2,9 +2,7 @@
   <form @submit.prevent="handleSubmit">
     <div class="mb-2 text-center">
       <h4 class="mb-3">Market details</h4>
-      <UiButton @click="addAction" v-if="!input" class="width-full mb-2">
-        Add market
-      </UiButton>
+      <UiButton @click="addAction" v-if="!input" class="width-full mb-2"> Add market </UiButton>
       <div v-else-if="!this.preview">
         <UiButton class="width-full mb-2">
           <input
@@ -46,14 +44,8 @@
     >
       Preview
     </UiButton>
-    <UiButton v-if="preview" @click="preview = false" class="width-full mb-2">
-      Back
-    </UiButton>
-    <UiButton
-      :disabled="!isValid"
-      @click="handleSubmit"
-      class="button--submit width-full"
-    >
+    <UiButton v-if="preview" @click="preview = false" class="width-full mb-2"> Back </UiButton>
+    <UiButton :disabled="!isValid" @click="handleSubmit" class="button--submit width-full">
       Confirm
     </UiButton>
   </form>
@@ -65,7 +57,7 @@ export default {
   data() {
     return {
       input: false,
-      preview: false
+      preview: false,
     };
   },
   computed: {
@@ -76,7 +68,7 @@ export default {
           this.input.quoteCurrencyAddress) ||
         this.input === false
       );
-    }
+    },
   },
   mounted() {
     if (this.value) return (this.input = this.value);
@@ -90,7 +82,7 @@ export default {
       this.input = {
         conditionId: '',
         baseTokenAddress: '',
-        quoteCurrencyAddress: ''
+        quoteCurrencyAddress: '',
       };
     },
     removeAction() {
@@ -101,8 +93,8 @@ export default {
       this.$emit('close');
     },
     getChoices() {
-      return this.proposal.choices.map(choice => choice.text);
-    }
-  }
+      return this.proposal.choices.map((choice) => choice.text);
+    },
+  },
 };
 </script>

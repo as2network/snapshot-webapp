@@ -20,10 +20,8 @@
             $n(
               !results.totalVotesBalances
                 ? 0
-                : ((100 / results.totalVotesBalances) *
-                    results.totalBalances[i]) /
-                    1e2,
-              'percent'
+                : ((100 / results.totalVotesBalances) * results.totalBalances[i]) / 1e2,
+              'percent',
             )
           "
         />
@@ -36,9 +34,7 @@
       />
     </div>
     <div v-if="ts >= payload.end">
-      <UiButton @click="downloadReport" class="width-full mt-2">
-        Download report
-      </UiButton>
+      <UiButton @click="downloadReport" class="width-full mt-2"> Download report </UiButton>
     </div>
   </Block>
 </template>
@@ -54,23 +50,21 @@ export default {
       return (Date.now() / 1e3).toFixed();
     },
     titles() {
-      return this.space.strategies.map(strategy => strategy.params.symbol);
-    }
+      return this.space.strategies.map((strategy) => strategy.params.symbol);
+    },
   },
   methods: {
     async downloadReport() {
       const obj = Object.entries(this.votes)
-        .map(vote => {
+        .map((vote) => {
           return {
             address: vote[0],
             choice: vote[1].msg.payload.choice,
             balance: vote[1].balance,
             timestamp: vote[1].msg.timestamp,
-            dateUtc: new Date(
-              parseInt(vote[1].msg.timestamp) * 1e3
-            ).toUTCString(),
+            dateUtc: new Date(parseInt(vote[1].msg.timestamp) * 1e3).toUTCString(),
             authorIpfsHash: vote[1].authorIpfsHash,
-            relayerIpfsHash: vote[1].relayerIpfsHash
+            relayerIpfsHash: vote[1].relayerIpfsHash,
           };
         })
         .sort((a, b) => a.timestamp - b.timestamp, 0);
@@ -84,7 +78,7 @@ export default {
       } catch (e) {
         console.error(e);
       }
-    }
-  }
+    },
+  },
 };
 </script>

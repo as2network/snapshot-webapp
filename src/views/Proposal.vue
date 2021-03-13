@@ -1,10 +1,7 @@
 <template>
   <Container :slim="true">
     <div class="px-4 px-md-0 mb-3">
-      <router-link
-        :to="{ name: domain ? 'home' : 'proposals' }"
-        class="text-gray"
-      >
+      <router-link :to="{ name: domain ? 'home' : 'proposals' }" class="text-gray">
         <Icon name="back" size="22" class="v-align-middle" />
         {{ space.name }}
       </router-link>
@@ -39,18 +36,11 @@
               <a
                 v-if="_get(payload, `metadata.plugins.aragon.choice${i + 1}`)"
                 @click="modalOpen = true"
-                :aria-label="
-                  `Target address: ${
-                    payload.metadata.plugins.aragon[`choice${i + 1}`].actions[0]
-                      .to
-                  }\nValue: ${
-                    payload.metadata.plugins.aragon[`choice${i + 1}`].actions[0]
-                      .value
-                  }\nData: ${
-                    payload.metadata.plugins.aragon[`choice${i + 1}`].actions[0]
-                      .data
-                  }`
-                "
+                :aria-label="`Target address: ${
+                  payload.metadata.plugins.aragon[`choice${i + 1}`].actions[0].to
+                }\nValue: ${
+                  payload.metadata.plugins.aragon[`choice${i + 1}`].actions[0].value
+                }\nData: ${payload.metadata.plugins.aragon[`choice${i + 1}`].actions[0].data}`"
                 class="tooltipped tooltipped-n break-word"
               >
                 <Icon name="warning" class="v-align-middle ml-1" />
@@ -66,47 +56,28 @@
             Vote
           </UiButton>
         </Block>
-        <BlockVotes
-          v-if="loaded"
-          :space="space"
-          :proposal="proposal"
-          :votes="votes"
-        />
+        <BlockVotes v-if="loaded" :space="space" :proposal="proposal" :votes="votes" />
       </div>
       <div v-if="loaded" class="col-12 col-lg-4 float-left">
         <Block title="Information">
           <div class="mb-1">
             <b>Strategie(s)</b>
-            <span
-              @click="modalStrategiesOpen = true"
-              class="float-right text-white a"
-            >
+            <span @click="modalStrategiesOpen = true" class="float-right text-white a">
               <span v-for="(symbol, symbolIndex) of symbols" :key="symbol">
                 <span :aria-label="symbol" class="tooltipped tooltipped-n">
                   <Token :space="space.key" :symbolIndex="symbolIndex" />
                 </span>
-                <span
-                  v-show="symbolIndex !== symbols.length - 1"
-                  class="ml-1"
-                />
+                <span v-show="symbolIndex !== symbols.length - 1" class="ml-1" />
               </span>
             </span>
           </div>
           <div class="mb-1">
             <b>Author</b>
-            <User
-              :address="proposal.address"
-              :space="space"
-              class="float-right"
-            />
+            <User :address="proposal.address" :space="space" class="float-right" />
           </div>
           <div class="mb-1">
             <b>IPFS</b>
-            <a
-              :href="_ipfsUrl(proposal.ipfsHash)"
-              target="_blank"
-              class="float-right"
-            >
+            <a :href="_ipfsUrl(proposal.ipfsHash)" target="_blank" class="float-right">
               #{{ proposal.ipfsHash.slice(0, 7) }}
               <Icon name="external-link" class="ml-1" />
             </a>
@@ -148,12 +119,7 @@
           :results="results"
           :votes="votes"
         />
-        <BlockActions
-          :id="id"
-          :space="space"
-          :payload="payload"
-          :results="results"
-        />
+        <BlockActions :id="id" :space="space" :payload="payload" :results="results" />
         <PluginGnosisBlock
           v-if="_get(payload, 'metadata.plugins.gnosis.baseTokenAddress')"
           :proposalConfig="payload.metadata.plugins.gnosis"
@@ -204,7 +170,7 @@ export default {
       modalStrategiesOpen: false,
       selectedChoice: 0,
       totalScore: 0,
-      scores: []
+      scores: [],
     };
   },
   computed: {
@@ -213,7 +179,7 @@ export default {
         return {
           ...this.app.spaces[this.key],
           ...as2network,
-        }
+        };
       }
       return this.app.spaces[this.key];
     },
@@ -224,20 +190,20 @@ export default {
       return (Date.now() / 1e3).toFixed();
     },
     symbols() {
-      return this.space.strategies.map(strategy => strategy.params.symbol);
-    }
+      return this.space.strategies.map((strategy) => strategy.params.symbol);
+    },
   },
   watch: {
-    'web3.account': async function(val, prev) {
+    'web3.account': async function (val, prev) {
       if (val && val.toLowerCase() !== prev) await this.loadPower();
-    }
+    },
   },
   methods: {
     ...mapActions(['getProposal', 'getPower']),
     async loadProposal() {
       const proposalObj = await this.getProposal({
         space: this.space,
-        id: this.id
+        id: this.id,
       });
       console.log(proposalObj);
       this.proposal = proposalObj.proposal;
@@ -249,11 +215,11 @@ export default {
       const { scores, totalScore } = await this.getPower({
         space: this.space,
         address: this.web3.account,
-        snapshot: this.payload.snapshot
+        snapshot: this.payload.snapshot,
       });
       this.totalScore = totalScore;
       this.scores = scores;
-    }
+    },
   },
   async created() {
     this.loading = true;
@@ -261,6 +227,6 @@ export default {
     await this.loadPower();
     this.loading = false;
     this.loaded = true;
-  }
+  },
 };
 </script>

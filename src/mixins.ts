@@ -9,20 +9,20 @@ import config from '@/helpers/config';
 import { shorten } from '@/helpers/utils';
 
 // @ts-ignore
-const modules = Object.entries(store.state).map(module => module[0]);
+const modules = Object.entries(store.state).map((module) => module[0]);
 const domainName = window.location.hostname;
 
 export default {
   data() {
     return {
-      config
+      config,
     };
   },
   computed: {
     ...mapState(modules),
     domain() {
       return domains[domainName];
-    }
+    },
   },
   methods: {
     _get(object, path, fb) {
@@ -41,8 +41,7 @@ export default {
       if (key === 'symbol') limit = 6;
       if (key === 'name') limit = 64;
       if (key === 'choice') limit = 12;
-      if (limit)
-        return str.length > limit ? `${str.slice(0, limit).trim()}...` : str;
+      if (limit) return str.length > limit ? `${str.slice(0, limit).trim()}...` : str;
       return shorten(str);
     },
     _ipfsUrl(ipfsHash: string): string {
@@ -50,6 +49,6 @@ export default {
     },
     _explorer(network, str: string, type = 'address'): string {
       return `${networks[network].explorer}/${type}/${str}`;
-    }
-  }
+    },
+  },
 };

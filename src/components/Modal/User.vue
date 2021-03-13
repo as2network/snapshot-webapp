@@ -21,6 +21,6 @@
 
 <script>
 export default {
-  props: ['open', 'address', 'space']
+  props: ['open', 'address', 'space'],
 };
 </script>

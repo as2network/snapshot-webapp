@@ -18,13 +18,13 @@ export default {
   computed: {
     skins() {
       return filterSkins(skins, this.app.spaces, '');
-    }
+    },
   },
   methods: {
     select(key) {
       this.$emit('input', key);
       this.$emit('close');
-    }
-  }
+    },
+  },
 };
 </script>

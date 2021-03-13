@@ -5,11 +5,11 @@
 <script>
 export default {
   props: {
-    value: Boolean
+    value: Boolean,
   },
   data() {
     return {
-      input: ''
+      input: '',
     };
   },
   created() {
@@ -17,11 +17,9 @@ export default {
   },
   methods: {
     handleInput() {
-      const value = ['1', 'yes', 'ok', 'true'].includes(
-        this.input.trim().toLowerCase()
-      );
+      const value = ['1', 'yes', 'ok', 'true'].includes(this.input.trim().toLowerCase());
       this.$emit('input', value);
-    }
-  }
+    },
+  },
 };
 </script>

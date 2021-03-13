@@ -2,7 +2,7 @@ import connectors from '@/helpers/connectors.json';
 
 const config = {
   env: 'master',
-  connectors
+  connectors,
 };
 
 const domainName = window.location.hostname;

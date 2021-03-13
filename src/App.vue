@@ -17,10 +17,10 @@ import { mapActions } from 'vuex';
 
 export default {
   watch: {
-    'app.modalOpen': function(val) {
+    'app.modalOpen': function (val) {
       const el = document.body;
       el.classList[val ? 'add' : 'remove']('overflow-hidden');
-    }
+    },
   },
   mounted() {
     this.init();
@@ -33,10 +33,10 @@ export default {
       } catch (e) {
         return {};
       }
-    }
+    },
   },
   methods: {
-    ...mapActions(['init'])
-  }
+    ...mapActions(['init']),
+  },
 };
 </script>

@@ -27,9 +27,9 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'home',
-    component: domains[domainName] ? Proposals : Home
+    component: domains[domainName] ? Proposals : Home,
   },
-  { path: '/*', name: 'error-404', beforeEnter: (to, from, next) => next('/') }
+  { path: '/*', name: 'error-404', beforeEnter: (to, from, next) => next('/') },
 ];
 
 const router = new VueRouter({
@@ -37,7 +37,7 @@ const router = new VueRouter({
   routes,
   scrollBehavior() {
     return { x: 0, y: 0 };
-  }
+  },
 });
 
 export default router;

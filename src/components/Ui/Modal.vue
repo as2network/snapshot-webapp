@@ -1,14 +1,9 @@
 <template>
   <div v-if="open" class="modal mx-auto">
     <div class="backdrop" @click="$emit('close')" />
-    <div
-      class="shell overflow-hidden anim-scale-in position-relative rounded-0 rounded-md-2"
-    >
+    <div class="shell overflow-hidden anim-scale-in position-relative rounded-0 rounded-md-2">
       <slot />
-      <a
-        @click="$emit('close')"
-        class="position-absolute right-0 top-1 p-4 text-gray"
-      >
+      <a @click="$emit('close')" class="position-absolute right-0 top-1 p-4 text-gray">
         <Icon name="close" />
       </a>
     </div>
@@ -23,11 +18,11 @@ export default {
   watch: {
     open(val, prev) {
       if (val !== prev) this.toggleModal();
-    }
+    },
   },
   methods: {
-    ...mapActions(['toggleModal'])
-  }
+    ...mapActions(['toggleModal']),
+  },
 };
 </script>
 

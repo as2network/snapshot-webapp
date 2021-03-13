@@ -10,10 +10,7 @@
           target="_blank"
           class="mb-2 d-block"
         >
-          <UiButton
-            v-if="id !== 'injected'"
-            class="button-outline width-full v-align-middle"
-          >
+          <UiButton v-if="id !== 'injected'" class="button-outline width-full v-align-middle">
             <img
               :src="`${path}/${connector.id}.png`"
               height="28"
@@ -22,10 +19,7 @@
             />
             {{ connector.name }}
           </UiButton>
-          <UiButton
-            v-else-if="injected"
-            class="button-outline width-full v-align-middle"
-          >
+          <UiButton v-else-if="injected" class="button-outline width-full v-align-middle">
             <img
               :src="`${path}/${injected.id}.png`"
               height="28"
@@ -40,11 +34,7 @@
     <div v-else>
       <h3 class="m-4 mb-0 text-center">Account</h3>
       <div v-if="$auth.isAuthenticated" class="m-4">
-        <a
-          :href="_explorer(web3.network.key, web3.account)"
-          target="_blank"
-          class="mb-2 d-block"
-        >
+        <a :href="_explorer(web3.network.key, web3.account)" target="_blank" class="mb-2 d-block">
           <UiButton class="button-outline width-full">
             <Avatar :address="web3.account" size="16" class="mr-2 ml-n1" />
             <span v-if="web3.name" v-text="web3.name" />
@@ -52,16 +42,10 @@
             <Icon name="external-link" class="ml-1" />
           </UiButton>
         </a>
-        <UiButton
-          @click="step = 'connect'"
-          class="button-outline width-full mb-2"
-        >
+        <UiButton @click="step = 'connect'" class="button-outline width-full mb-2">
           Connect wallet
         </UiButton>
-        <UiButton
-          @click="handleLogout"
-          class="button-outline width-full text-red mb-2"
-        >
+        <UiButton @click="handleLogout" class="button-outline width-full text-red mb-2">
           Log out
         </UiButton>
       </div>
@@ -78,26 +62,25 @@ export default {
   data() {
     return {
       step: null,
-      path:
-        'https://raw.githubusercontent.com/snapshot-labs/lock/master/connectors/assets'
+      path: 'https://raw.githubusercontent.com/snapshot-labs/lock/master/connectors/assets',
     };
   },
   watch: {
     open() {
       this.step = null;
-    }
+    },
   },
   computed: {
     injected() {
       return getInjected();
-    }
+    },
   },
   methods: {
     ...mapActions(['logout']),
     async handleLogout() {
       await this.logout();
       this.$emit('close');
-    }
-  }
+    },
+  },
 };
 </script>

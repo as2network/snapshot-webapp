@@ -62,8 +62,8 @@ export default {
       pkg,
       commitSha: process.env.VUE_APP_COMMIT_SHA,
       hubUrl: process.env.VUE_APP_HUB_URL,
-      ipfsNode: process.env.VUE_APP_IPFS_NODE
+      ipfsNode: process.env.VUE_APP_IPFS_NODE,
     };
-  }
+  },
 };
 </script>

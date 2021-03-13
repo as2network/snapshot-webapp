@@ -7,17 +7,11 @@
           <div class="d-flex flex-items-center flex-auto">
             <h2 class="mr-2">
               Proposals
-              <UiCounter
-                :counter="Object.keys(proposalsWithFilter).length"
-                class="ml-1"
-              />
+              <UiCounter :counter="Object.keys(proposalsWithFilter).length" class="ml-1" />
             </h2>
           </div>
         </div>
-        <router-link
-          v-if="$auth.isAuthenticated"
-          :to="{ name: 'create', params: { key } }"
-        >
+        <router-link v-if="$auth.isAuthenticated" :to="{ name: 'create', params: { key } }">
           <UiButton>New proposal</UiButton>
         </router-link>
         <router-link
@@ -33,9 +27,7 @@
     </Container>
     <Container :slim="true">
       <Block :slim="true">
-        <div
-          class="px-4 py-3 bg-gray-dark overflow-auto menu-tabs rounded-top-0 rounded-md-top-2"
-        >
+        <div class="px-4 py-3 bg-gray-dark overflow-auto menu-tabs rounded-top-0 rounded-md-top-2">
           <router-link
             v-for="state in states"
             :key="state"
@@ -77,7 +69,7 @@ export default {
       loading: false,
       loaded: false,
       proposals: {},
-      tab: 'all'
+      tab: 'all',
     };
   },
   computed: {
@@ -88,51 +80,40 @@ export default {
       return this.app.spaces[this.key];
     },
     states() {
-      const states = [
-        'all',
-        'core',
-        'community',
-        'active',
-        'pending',
-        'closed'
-      ];
+      const states = ['all', 'core', 'community', 'active', 'pending', 'closed'];
       return this.space.filters.onlyMembers
-        ? states.filter(state => !['core', 'community'].includes(state))
+        ? states.filter((state) => !['core', 'community'].includes(state))
         : states;
     },
     totalProposals() {
-      console.log(this.proposals)
+      console.log(this.proposals);
       return Object.keys(this.proposals).length;
     },
     proposalsWithFilter() {
       if (this.totalProposals === 0) return {};
       return Object.fromEntries(
         Object.entries(this.proposals)
-          .filter(proposal => filterProposals(this.space, proposal, this.tab))
-          .sort((a, b) => b[1].msg.payload.end - a[1].msg.payload.end, 0)
+          .filter((proposal) => filterProposals(this.space, proposal, this.tab))
+          .sort((a, b) => b[1].msg.payload.end - a[1].msg.payload.end, 0),
       );
     },
     isMember() {
-      const members = this.space.members.map(address => address.toLowerCase());
-      return (
-        this.$auth.isAuthenticated &&
-        members.includes(this.web3.account.toLowerCase())
-      );
+      const members = this.space.members.map((address) => address.toLowerCase());
+      return this.$auth.isAuthenticated && members.includes(this.web3.account.toLowerCase());
     },
     isEns() {
       return this.key.includes('.eth');
-    }
+    },
   },
   methods: {
-    ...mapActions(['getProposals'])
+    ...mapActions(['getProposals']),
   },
   async created() {
     this.loading = true;
-    this.tab =
-      this.$route.params.tab || this.space.filters.defaultTab || this.tab;
+    this.tab = this.$route.params.tab || this.space.filters.defaultTab || this.tab;
     this.proposals = await this.getProposals(this.space);
     this.loading = false;
     this.loaded = true;
-  }
+  },
 };
 </script>

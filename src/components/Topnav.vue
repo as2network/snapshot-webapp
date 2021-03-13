@@ -3,31 +3,27 @@
     <div
       v-if="config.env === 'develop'"
       class="p-3 text-center bg-blue"
-      style="color: white; font-size: 20px;"
+      style="color: white; font-size: 20px"
     >
       This is the demo site, give it a try!
     </div>
     <nav id="topnav" class="border-bottom width-full bg-black">
       <Container>
-        <div class="d-flex flex-items-center" style="height: 78px;">
+        <div class="d-flex flex-items-center" style="height: 78px">
           <div class="flex-auto d-flex flex-items-center">
             <router-link
               :to="{ name: 'proposals' }"
               class="d-inline-block d-flex flex-items-center"
-              style="font-size: 24px; padding-top: 4px;"
+              style="font-size: 24px; padding-top: 4px"
             >
-              <span
-                :class="space && 'hide-sm'"
-                class="mr-1"
-                v-text="'Governance'"
-              />
+              <span :class="space && 'hide-sm'" class="mr-1" v-text="'Governance'" />
               <span v-if="space" class="pl-1 pr-2 text-gray" v-text="'/'" />
             </router-link>
             <router-link
               v-if="space"
               :to="{ name: 'proposals' }"
               class="d-inline-block d-flex flex-items-center"
-              style="font-size: 24px; padding-top: 4px;"
+              style="font-size: 24px; padding-top: 4px"
             >
               <Token :space="space.key" symbolIndex="space" size="28" />
               <span class="ml-2" v-text="space.name" />
@@ -35,11 +31,7 @@
           </div>
           <div :key="web3.account">
             <template v-if="$auth.isAuthenticated">
-              <UiButton
-                @click="modalOpen = true"
-                class="button-outline"
-                :loading="loading"
-              >
+              <UiButton @click="modalOpen = true" class="button-outline" :loading="loading">
                 <Avatar
                   :address="web3.account"
                   size="16"
@@ -49,11 +41,7 @@
                 <span v-else v-text="_shorten(web3.account)" class="hide-sm" />
               </UiButton>
             </template>
-            <UiButton
-              v-if="!$auth.isAuthenticated"
-              @click="modalOpen = true"
-              :loading="loading"
-            >
+            <UiButton v-if="!$auth.isAuthenticated" @click="modalOpen = true" :loading="loading">
               <span class="hide-sm" v-text="'Connect wallet'" />
               <Icon
                 name="login"
@@ -69,11 +57,7 @@
       </Container>
     </nav>
     <portal to="modal">
-      <ModalAccount
-        :open="modalOpen"
-        @close="modalOpen = false"
-        @login="handleLogin"
-      />
+      <ModalAccount :open="modalOpen" @close="modalOpen = false" @login="handleLogin" />
       <ModalAbout :open="modalAboutOpen" @close="modalAboutOpen = false" />
     </portal>
   </Sticky>
@@ -87,14 +71,14 @@ export default {
     return {
       loading: false,
       modalOpen: false,
-      modalAboutOpen: false
+      modalAboutOpen: false,
     };
   },
   computed: {
     space() {
       const key = 'as2network';
       return this.app.spaces[key] ? this.app.spaces[key] : false;
-    }
+    },
   },
   created() {
     this.setTitle();
@@ -102,7 +86,7 @@ export default {
   watch: {
     space() {
       this.setTitle();
-    }
+    },
   },
   methods: {
     ...mapActions(['login']),
@@ -114,7 +98,7 @@ export default {
       this.loading = true;
       await this.login(connector);
       this.loading = false;
-    }
-  }
+    },
+  },
 };
 </script>

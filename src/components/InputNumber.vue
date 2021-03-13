@@ -1,20 +1,15 @@
 <template>
-  <input
-    v-model="input"
-    @input="handleInput"
-    type="number"
-    class="input width-full"
-  />
+  <input v-model="input" @input="handleInput" type="number" class="input width-full" />
 </template>
 
 <script>
 export default {
   props: {
-    value: Number
+    value: Number,
   },
   data() {
     return {
-      input: ''
+      input: '',
     };
   },
   created() {
@@ -24,7 +19,7 @@ export default {
     handleInput() {
       if (!this.input) return this.$emit('input', undefined);
       this.$emit('input', parseFloat(this.input));
-    }
-  }
+    },
+  },
 };
 </script>

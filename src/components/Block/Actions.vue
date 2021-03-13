@@ -21,7 +21,7 @@ export default {
   props: ['id', 'space', 'payload', 'results'],
   data() {
     return {
-      loading: false
+      loading: false,
     };
   },
   computed: {
@@ -42,14 +42,14 @@ export default {
     plugins() {
       if (this.space && this.space.plugins)
         return Object.keys(this.space.plugins).filter(
-          plugin =>
+          (plugin) =>
             this.payload &&
             this.payload.metadata &&
             this.payload.metadata.plugins &&
-            this.payload.metadata.plugins[plugin]
+            this.payload.metadata.plugins[plugin],
         );
       return [];
-    }
+    },
   },
   methods: {
     ...mapActions(['notify']),
@@ -63,7 +63,7 @@ export default {
           this.space.plugins[plugin],
           this.payload.metadata.plugins[plugin],
           this.id,
-          this.winningChoice
+          this.winningChoice,
         );
         const receipt = await tx.wait();
         console.log('Receipt', receipt);
@@ -72,7 +72,7 @@ export default {
         console.error(e);
       }
       this.loading = false;
-    }
-  }
+    },
+  },
 };
 </script>

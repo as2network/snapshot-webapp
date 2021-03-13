@@ -4,9 +4,7 @@
       <h3>
         <a
           v-text="strategy.key"
-          :href="
-            `https://github.com/snapshot-labs/snapshot.js/tree/master/src/strategies/${strategy.key}`
-          "
+          :href="`https://github.com/snapshot-labs/snapshot.js/tree/master/src/strategies/${strategy.key}`"
           target="_blank"
         />
       </h3>
@@ -14,11 +12,7 @@
     </div>
     <div>
       <div>
-        <a
-          :href="`https://github.com/${strategy.author}`"
-          target="_blank"
-          class="text-gray"
-        >
+        <a :href="`https://github.com/${strategy.author}`" target="_blank" class="text-gray">
           <Icon name="github" class="mr-1" />
           {{ strategy.author }}
         </a>
@@ -30,6 +24,6 @@
 
 <script>
 export default {
-  props: ['strategy']
+  props: ['strategy'],
 };
 </script>

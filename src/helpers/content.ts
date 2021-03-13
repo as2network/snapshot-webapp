@@ -20,10 +20,7 @@ export function decodeContenthash(encoded) {
 
         protocolType = 'ipfs';
       } else if (codec === 'ipns-ns') {
-        decoded = bs58
-          .decode(decoded)
-          .slice(2)
-          .toString();
+        decoded = bs58.decode(decoded).slice(2).toString();
         protocolType = 'ipns';
       } else if (codec === 'swarm-ns') {
         protocolType = 'bzz';
@@ -76,10 +73,7 @@ export function encodeContenthash(text) {
         }
       } else if (contentType === 'ipns') {
         const bs58content = bs58.encode(
-          Buffer.concat([
-            Buffer.from([0, content.length]),
-            Buffer.from(content)
-          ])
+          Buffer.concat([Buffer.from([0, content.length]), Buffer.from(content)]),
         );
         encoded = '0x' + contentHash.encode('ipns-ns', bs58content);
       } else if (contentType === 'bzz') {
@@ -97,7 +91,7 @@ export function encodeContenthash(text) {
       } else {
         console.warn('Unsupported protocol or invalid value', {
           contentType,
-          text
+          text,
         });
       }
     } catch (err) {

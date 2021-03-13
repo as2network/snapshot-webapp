@@ -9,7 +9,7 @@
       </div>
       <div v-else>
         <h3 class="m-4 mb-0 text-center">Select {{ selectedDate }} time</h3>
-        <div class="d-flex m-4 mx-auto" style="max-width: 160px;">
+        <div class="d-flex m-4 mx-auto" style="max-width: 160px">
           <UiButton class="px-0 width-fit">
             <input v-model="form.h" max="24" class="input text-center col-5" />
             <span class="col-2">:</span>
@@ -19,9 +19,7 @@
       </div>
       <div class="p-4 overflow-hidden text-center border-top">
         <div class="col-6 float-left pr-2">
-          <UiButton @click="$emit('close')" type="button" class="width-full">
-            Cancel
-          </UiButton>
+          <UiButton @click="$emit('close')" type="button" class="width-full"> Cancel </UiButton>
         </div>
         <div class="col-6 float-left pl-2">
           <UiButton type="submit" class="width-full button--submit">
@@ -43,8 +41,8 @@ export default {
       step: 0,
       form: {
         h: '12',
-        m: '00'
-      }
+        m: '00',
+      },
     };
   },
   watch: {
@@ -52,7 +50,7 @@ export default {
       this.step = 0;
       this.form = { h: '12', m: '00' };
       this.input = this.value;
-    }
+    },
   },
   methods: {
     handleSubmit() {
@@ -62,7 +60,7 @@ export default {
       input = new Date(input).getTime() / (1e3).toFixed();
       this.$emit('input', input);
       this.$emit('close');
-    }
-  }
+    },
+  },
 };
 </script>

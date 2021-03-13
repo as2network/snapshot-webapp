@@ -29,48 +29,31 @@
               />
             </UiButton>
           </Block>
-          <Block
-            v-if="delegates.length > 0"
-            :slim="true"
-            title="Your delegation(s)"
-          >
+          <Block v-if="delegates.length > 0" :slim="true" title="Your delegation(s)">
             <div
               v-for="(delegate, i) in delegates"
               :key="i"
               :style="i === 0 && 'border: 0 !important;'"
               class="px-4 py-3 border-top d-flex"
             >
-              <User
-                :address="delegate.delegate"
-                :space="{ network: web3.network.key }"
-              />
+              <User :address="delegate.delegate" :space="{ network: web3.network.key }" />
               <div
                 v-text="_shorten(delegate.space || '-', 'choice')"
                 class="flex-auto text-right text-white"
               />
-              <a
-                @click="clearDelegate(delegate.space, delegate.delegate)"
-                class="px-2 mr-n2 ml-2"
-              >
+              <a @click="clearDelegate(delegate.space, delegate.delegate)" class="px-2 mr-n2 ml-2">
                 <Icon name="close" size="12" class="mb-1" />
               </a>
             </div>
           </Block>
-          <Block
-            v-if="delegators.length > 0"
-            :slim="true"
-            title="Delegated to you"
-          >
+          <Block v-if="delegators.length > 0" :slim="true" title="Delegated to you">
             <div
               v-for="(delegator, i) in delegators"
               :key="i"
               :style="i === 0 && 'border: 0 !important;'"
               class="px-4 py-3 border-top d-flex"
             >
-              <User
-                :address="delegator.delegator"
-                :space="{ network: web3.network.key }"
-              />
+              <User :address="delegator.delegator" :space="{ network: web3.network.key }" />
               <div
                 v-text="_shorten(delegator.space || '-', 'choice')"
                 class="flex-auto text-right text-white"
@@ -112,11 +95,7 @@ import { formatBytes32String } from '@ethersproject/strings';
 import { sendTransaction } from '@snapshot-labs/snapshot.js/src/utils';
 import getProvider from '@snapshot-labs/snapshot.js/src/utils/provider';
 import abi from '@/helpers/abi';
-import {
-  getDelegates,
-  getDelegators,
-  contractAddress
-} from '@/helpers/delegation';
+import { getDelegates, getDelegators, contractAddress } from '@/helpers/delegation';
 import { sleep } from '@/helpers/utils';
 
 export default {
@@ -131,17 +110,17 @@ export default {
       delegators: [],
       form: {
         address: '',
-        id: ''
-      }
+        id: '',
+      },
     };
   },
   watch: {
-    'web3.account': async function(val, prev) {
+    'web3.account': async function (val, prev) {
       if (val && val.toLowerCase() !== prev) await this.load();
     },
-    'web3.network.key': async function(val, prev) {
+    'web3.network.key': async function (val, prev) {
       if (val !== prev) await this.load();
-    }
+    },
   },
   async created() {
     await this.load();
@@ -156,7 +135,7 @@ export default {
         address.toLowerCase() !== this.web3.account.toLowerCase() &&
         (this.form.id === '' || this.app.spaces[this.form.id])
       );
-    }
+    },
   },
   methods: {
     ...mapActions(['notify']),
@@ -164,7 +143,7 @@ export default {
       if (this.web3.account) {
         const [delegates, delegators] = await Promise.all([
           getDelegates(this.web3.network.key, this.web3.account),
-          getDelegators(this.web3.network.key, this.web3.account)
+          getDelegators(this.web3.network.key, this.web3.account),
         ]);
         this.delegates = delegates.delegations;
         this.delegators = delegators.delegations;
@@ -174,14 +153,13 @@ export default {
       this.loading = true;
       try {
         let address = this.form.address;
-        if (address.includes('.eth'))
-          address = await getProvider('1').resolveName(address);
+        if (address.includes('.eth')) address = await getProvider('1').resolveName(address);
         const tx = await sendTransaction(
           this.$auth.web3,
           contractAddress,
           abi['DelegateRegistry'],
           'setDelegate',
-          [formatBytes32String(this.form.id), address]
+          [formatBytes32String(this.form.id), address],
         );
         const receipt = await tx.wait();
         console.log('Receipt', receipt);
@@ -197,7 +175,7 @@ export default {
       this.currentId = id;
       this.currentDelegate = delegate;
       this.modalOpen = true;
-    }
-  }
+    },
+  },
 };
 </script>

@@ -29,15 +29,8 @@
                 class="text-gray p-2 mr-n3"
               />
             </UiButton>
-            <a
-              :href="`https://app.ens.domains/name/${key}`"
-              target="_blank"
-              class="mb-2 d-block"
-            >
-              <UiButton
-                :class="!isReady && 'button--submit'"
-                class="button-outline width-full"
-              >
+            <a :href="`https://app.ens.domains/name/${key}`" target="_blank" class="mb-2 d-block">
+              <UiButton :class="!isReady && 'button--submit'" class="button-outline width-full">
                 {{ isReady ? 'See on ENS' : 'Set record on ENS' }}
                 <Icon name="external-link" class="ml-1" />
               </UiButton>
@@ -47,22 +40,10 @@
             <Block title="Profile">
               <div class="mb-2">
                 <UiButton class="width-full mb-2">
-                  <input
-                    v-model="form.name"
-                    class="input width-full"
-                    placeholder="Name"
-                    required
-                  />
+                  <input v-model="form.name" class="input width-full" placeholder="Name" required />
                 </UiButton>
-                <UiButton
-                  @click="modalNetworksOpen = true"
-                  class="text-left width-full mb-2"
-                >
-                  {{
-                    form.network
-                      ? networks[form.network].name
-                      : 'Select network'
-                  }}
+                <UiButton @click="modalNetworksOpen = true" class="text-left width-full mb-2">
+                  {{ form.network ? networks[form.network].name : 'Select network' }}
                 </UiButton>
                 <UiButton class="width-full mb-2">
                   <input
@@ -72,37 +53,20 @@
                     required
                   />
                 </UiButton>
-                <UiButton
-                  @click="modalSkinsOpen = true"
-                  class="text-left width-full mb-2"
-                >
+                <UiButton @click="modalSkinsOpen = true" class="text-left width-full mb-2">
                   {{ form.skin ? form.skin : 'Default skin' }}
                 </UiButton>
                 <UiButton class="width-full mb-2">
-                  <input
-                    v-model="form.domain"
-                    class="input width-full"
-                    placeholder="Domain name"
-                  />
+                  <input v-model="form.domain" class="input width-full" placeholder="Domain name" />
                 </UiButton>
               </div>
             </Block>
             <Block title="Strategies">
-              <div
-                v-for="(strategy, i) in form.strategies"
-                :key="i"
-                class="mb-3 position-relative"
-              >
-                <a
-                  @click="handleRemoveStrategy(i)"
-                  class="position-absolute p-4 right-0"
-                >
+              <div v-for="(strategy, i) in form.strategies" :key="i" class="mb-3 position-relative">
+                <a @click="handleRemoveStrategy(i)" class="position-absolute p-4 right-0">
                   <Icon name="close" size="12" />
                 </a>
-                <a
-                  @click="handleEditStrategy(i)"
-                  class="p-4 d-block border rounded-2"
-                >
+                <a @click="handleEditStrategy(i)" class="p-4 d-block border rounded-2">
                   <h4 v-text="strategy.name" />
                 </a>
               </div>
@@ -111,13 +75,11 @@
               </UiButton>
             </Block>
             <Block title="Members">
-              <UiButton class="d-block width-full" style="height: auto;">
+              <UiButton class="d-block width-full" style="height: auto">
                 <TextareaArray
                   :value="form.members"
                   v-model="form.members"
-                  :placeholder="
-                    `0x8C28Cf33d9Fd3D0293f963b1cd27e3FF422B425c\n0xeF8305E140ac520225DAf050e2f71d5fBcC543e7`
-                  "
+                  :placeholder="`0x8C28Cf33d9Fd3D0293f963b1cd27e3FF422B425c\n0xeF8305E140ac520225DAf050e2f71d5fBcC543e7`"
                   class="input width-full text-left"
                 />
               </UiButton>
@@ -147,13 +109,11 @@
                     placeholder="Only members proposals"
                   />
                 </UiButton>
-                <UiButton class="d-block width-full" style="height: auto;">
+                <UiButton class="d-block width-full" style="height: auto">
                   <TextareaArray
                     :value="form.filters.invalids"
                     v-model="form.filters.invalids"
-                    :placeholder="
-                      `Qmc4VSHwY3SVmo4oofhL2qDPaYcGaQqndM4oqdQQe2aZHQ\nQmTMAgnPy2q6LRMNwvj27PHvWEgZ3bw7yTtNNEucBZCWhZ`
-                    "
+                    :placeholder="`Qmc4VSHwY3SVmo4oofhL2qDPaYcGaQqndM4oqdQQe2aZHQ\nQmTMAgnPy2q6LRMNwvj27PHvWEgZ3bw7yTtNNEucBZCWhZ`"
                     class="input width-full text-left"
                   />
                 </UiButton>
@@ -164,9 +124,7 @@
       </div>
       <div v-if="loaded && isReady" class="col-12 col-lg-4 float-left">
         <Block title="Actions">
-          <UiButton @click="handleReset" class="d-block width-full mb-2">
-            Reset
-          </UiButton>
+          <UiButton @click="handleReset" class="d-block width-full mb-2"> Reset </UiButton>
           <UiButton
             @click="handleSubmit"
             :disabled="!isValid"
@@ -184,11 +142,7 @@
         @close="modalNetworksOpen = false"
         v-model="form.network"
       />
-      <ModalSkins
-        :open="modalSkinsOpen"
-        @close="modalSkinsOpen = false"
-        v-model="form.skin"
-      />
+      <ModalSkins :open="modalSkinsOpen" @close="modalSkinsOpen = false" v-model="form.skin" />
       <ModalStrategy
         :open="modalStrategyOpen"
         @close="modalStrategyOpen = false"
@@ -229,9 +183,9 @@ export default {
       loading: false,
       form: {
         strategies: [],
-        filters: {}
+        filters: {},
       },
-      networks
+      networks,
     };
   },
   computed: {
@@ -242,21 +196,16 @@ export default {
       return !this.loading && this.web3.account && this.validate === true;
     },
     contenthash() {
-      const address = this.web3.account
-        ? getAddress(this.web3.account)
-        : 'YOUR_ADDRESS';
+      const address = this.web3.account ? getAddress(this.web3.account) : 'YOUR_ADDRESS';
       return `ipns://storage.snapshot.page/registry/${address}/${this.key}`;
     },
     isReady() {
       return this.currentContenthash === this.contenthash;
-    }
+    },
   },
   async created() {
     try {
-      const { protocolType, decoded } = await resolveContent(
-        getProvider('1'),
-        this.key
-      );
+      const { protocolType, decoded } = await resolveContent(getProvider('1'), this.key);
       this.currentContenthash = `${protocolType}://${decoded}`;
       const space = await ipfsGet(gateway, decoded, protocolType);
       space.filters = space.filters || {};
@@ -277,7 +226,7 @@ export default {
         await this.send({
           space: this.key,
           type: 'settings',
-          payload: this.form
+          payload: this.form,
         });
       } catch (e) {
         console.log(e);
@@ -289,7 +238,7 @@ export default {
       if (this.currentSettings) return (this.form = this.currentSettings);
       this.form = {
         strategies: [],
-        filters: {}
+        filters: {},
       };
     },
     handleCopy() {
@@ -301,9 +250,7 @@ export default {
       this.modalStrategyOpen = true;
     },
     handleRemoveStrategy(i) {
-      this.form.strategies = this.form.strategies.filter(
-        (strategy, index) => index !== i
-      );
+      this.form.strategies = this.form.strategies.filter((strategy, index) => index !== i);
     },
     handleAddStrategy() {
       this.currentStrategyIndex = false;
@@ -316,7 +263,7 @@ export default {
       } else {
         this.form.strategies = this.form.strategies.concat(strategy);
       }
-    }
-  }
+    },
+  },
 };
 </script>

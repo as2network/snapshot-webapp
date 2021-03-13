@@ -55,9 +55,7 @@
       }
     }
   ],
-  "members": [
-    "0x6eaf1b33b8672c5dc40aB8f4bA3A0111723126c7"
-  ],
+  "members": ["0x6eaf1b33b8672c5dc40aB8f4bA3A0111723126c7"],
   "filters": {
     "defaultTab": "core",
     "minScore": 0,

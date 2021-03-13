@@ -5,11 +5,11 @@
 <script>
 export default {
   props: {
-    value: Array
+    value: Array,
   },
   data() {
     return {
-      input: ''
+      input: '',
     };
   },
   created() {
@@ -22,10 +22,10 @@ export default {
         .replace(/,/g, ' ')
         .replace(/;/g, ' ')
         .split(' ')
-        .map(item => item.trim())
-        .filter(item => !!item);
+        .map((item) => item.trim())
+        .filter((item) => !!item);
       this.$emit('input', input);
-    }
-  }
+    },
+  },
 };
 </script>

@@ -35,9 +35,7 @@
             required
           />
         </UiButton>
-        <UiButton @click="removeAction" class="width-full mb-2">
-          Remove action
-        </UiButton>
+        <UiButton @click="removeAction" class="width-full mb-2"> Remove action </UiButton>
       </div>
     </div>
     <UiButton @click="handleSubmit" class="button--submit width-full">
@@ -52,21 +50,21 @@ export default {
   data() {
     return {
       input: false,
-      choice: 1
+      choice: 1,
     };
   },
   computed: {
     canAddAction() {
       const choicesWithActions = this.proposal.choices.filter(
-        (choice, i) => this.input[`choice${i + 1}`]
+        (choice, i) => this.input[`choice${i + 1}`],
       );
       return this.proposal.choices.length - 1 > choicesWithActions.length;
-    }
+    },
   },
   mounted() {
     if (this.value) return (this.input = this.value);
     this.input = Object.fromEntries(
-      this.proposal.choices.map((choice, i) => [`choice${i + 1}`, false])
+      this.proposal.choices.map((choice, i) => [`choice${i + 1}`, false]),
     );
   },
   methods: {
@@ -77,9 +75,9 @@ export default {
           {
             to: '',
             value: '',
-            data: ''
-          }
-        ]
+            data: '',
+          },
+        ],
       };
     },
     removeAction() {
@@ -93,7 +91,7 @@ export default {
       } else {
         this.choice++;
       }
-    }
-  }
+    },
+  },
 };
 </script>

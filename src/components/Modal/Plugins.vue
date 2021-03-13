@@ -7,12 +7,7 @@
         :key="i"
         class="m-4 mt-0 p-4 border rounded-2 text-white text-center"
       >
-        <img
-          class="circle border"
-          :src="getLogoUrl(i)"
-          width="64"
-          height="64"
-        />
+        <img class="circle border" :src="getLogoUrl(i)" width="64" height="64" />
         <h3 v-text="plugin.name" />
         <div class="mb-2">
           <a :href="plugin.website" target="_blank" class="text-white">
@@ -26,9 +21,7 @@
       </div>
       <div class="p-4 overflow-hidden text-center border-top">
         <div class="col-6 float-left pr-2">
-          <UiButton @click="$emit('close')" type="button" class="width-full">
-            Cancel
-          </UiButton>
+          <UiButton @click="$emit('close')" type="button" class="width-full"> Cancel </UiButton>
         </div>
         <div class="col-6 float-left pl-2">
           <UiButton
@@ -70,28 +63,28 @@ export default {
     return {
       plugins: [],
       selected: false,
-      form: {}
+      form: {},
     };
   },
   watch: {
     open() {
       if (this.value && this.open) this.form = clone(this.value);
       this.selected = false;
-    }
+    },
   },
   created() {
     if (!this.space.plugins) return;
     this.plugins = Object.fromEntries(
-      Object.keys(this.space.plugins).map(plugin => {
+      Object.keys(this.space.plugins).map((plugin) => {
         const instance = new plugins[plugin]();
         return [plugin, instance];
-      })
+      }),
     );
   },
   methods: {
     getLogoUrl(plugin) {
       return `https://raw.githubusercontent.com/snapshot-labs/snapshot.js/master/src/plugins/${plugin}/logo.png`;
-    }
-  }
+    },
+  },
 };
 </script>

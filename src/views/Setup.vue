@@ -12,15 +12,9 @@
           <h1 v-text="'Create a space'" class="mb-4" />
         </div>
         <Block>
-          <div class="mb-3">
-            Use an existing ENS name to create your space on.
-          </div>
+          <div class="mb-3">Use an existing ENS name to create your space on.</div>
           <UiButton class="d-flex width-full mb-2">
-            <input
-              v-model="id"
-              class="input width-full"
-              placeholder="ENS name"
-            />
+            <input v-model="id" class="input width-full" placeholder="ENS name" />
           </UiButton>
           <UiButton
             :disabled="!id.includes('.eth')"
@@ -39,13 +33,13 @@
 export default {
   data() {
     return {
-      id: ''
+      id: '',
     };
   },
   methods: {
     handleSubmit() {
       this.$router.push({ name: 'settings', params: { key: this.id } });
-    }
-  }
+    },
+  },
 };
 </script>

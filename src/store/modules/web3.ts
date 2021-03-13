@@ -10,7 +10,7 @@ let wsProvider;
 let auth;
 
 if (wsProvider) {
-  wsProvider.on('block', blockNumber => {
+  wsProvider.on('block', (blockNumber) => {
     store.commit('GET_BLOCK_SUCCESS', blockNumber);
   });
 }
@@ -18,7 +18,7 @@ if (wsProvider) {
 const state = {
   account: null,
   name: null,
-  network: networks['1']
+  network: networks['1'],
 };
 
 const mutations = {
@@ -45,7 +45,7 @@ const mutations = {
         ...networks['1'],
         chainId,
         name: 'Unknown',
-        network: 'unknown'
+        network: 'unknown',
       };
     }
     Vue.set(_state, 'network', networks[chainId]);
@@ -54,7 +54,7 @@ const mutations = {
   HANDLE_ACCOUNTS_CHANGED(_state, payload) {
     Vue.set(_state, 'account', payload);
     console.debug('HANDLE_ACCOUNTS_CHANGED', payload);
-  }
+  },
 };
 
 const actions = {
@@ -75,10 +75,10 @@ const actions = {
     try {
       if (auth.provider.removeAllListeners) auth.provider.removeAllListeners();
       if (auth.provider.on) {
-        auth.provider.on('chainChanged', async chainId => {
+        auth.provider.on('chainChanged', async (chainId) => {
           commit('HANDLE_CHAIN_CHANGED', parseInt(formatUnits(chainId, 0)));
         });
-        auth.provider.on('accountsChanged', async accounts => {
+        auth.provider.on('accountsChanged', async (accounts) => {
           if (accounts.length !== 0) {
             commit('HANDLE_ACCOUNTS_CHANGED', accounts[0]);
             await dispatch('loadProvider');
@@ -90,7 +90,7 @@ const actions = {
       }
       const [network, accounts] = await Promise.all([
         auth.web3.getNetwork(),
-        auth.web3.listAccounts()
+        auth.web3.listAccounts(),
       ]);
       commit('HANDLE_CHAIN_CHANGED', network.chainId);
       const account = accounts.length > 0 ? accounts[0] : null;
@@ -102,17 +102,17 @@ const actions = {
       }
       commit('LOAD_PROVIDER_SUCCESS', {
         account,
-        name
+        name,
       });
     } catch (e) {
       commit('LOAD_PROVIDER_FAILURE', e);
       return Promise.reject();
     }
-  }
+  },
 };
 
 export default {
   state,
   mutations,
-  actions
+  actions,
 };

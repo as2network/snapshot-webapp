@@ -21,11 +21,7 @@
       </Container>
     </div>
     <Container :slim="true">
-      <div
-        v-infinite-scroll="loadMore"
-        infinite-scroll-distance="0"
-        class="overflow-hidden"
-      >
+      <div v-infinite-scroll="loadMore" infinite-scroll-distance="0" class="overflow-hidden">
         <template v-if="route === 'strategies'">
           <BlockStrategy
             v-for="item in items.slice(0, limit)"
@@ -65,7 +61,7 @@ export default {
   data() {
     return {
       q: this.$route.query.q || '',
-      limit: 8
+      limit: 8,
     };
   },
   computed: {
@@ -85,19 +81,16 @@ export default {
       return 'result(s)';
     },
     items() {
-      if (this.route === 'strategies')
-        return filterStrategies(strategies, this.app.spaces, this.q);
-      if (this.route === 'skins')
-        return filterSkins(skins, this.app.spaces, this.q);
-      if (this.route === 'networks')
-        return filterNetworks(networks, this.app.spaces, this.q);
+      if (this.route === 'strategies') return filterStrategies(strategies, this.app.spaces, this.q);
+      if (this.route === 'skins') return filterSkins(skins, this.app.spaces, this.q);
+      if (this.route === 'networks') return filterNetworks(networks, this.app.spaces, this.q);
       return [];
-    }
+    },
   },
   methods: {
     loadMore() {
       this.limit += 8;
-    }
-  }
+    },
+  },
 };
 </script>

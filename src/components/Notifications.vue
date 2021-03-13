@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="position-fixed left-0 right-0 bottom-0 text-center"
-    style="z-index: 99999;"
-  >
+  <div class="position-fixed left-0 right-0 bottom-0 text-center" style="z-index: 99999">
     <div class="mb-4">
       <div v-for="(item, key) in items" :key="key" class="mb-2">
         <UiButton
@@ -25,16 +22,16 @@ export default {
   data() {
     return {
       now: Date.now(),
-      duration: DURATION
+      duration: DURATION,
     };
   },
   computed: {
     items() {
       return this.$store.state.notifications.items;
-    }
+    },
   },
   mounted() {
     setInterval(() => (this.now = Date.now()), 1000);
-  }
+  },
 };
 </script>

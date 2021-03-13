@@ -9,20 +9,20 @@ const REGISTRAR_ABI = [
     inputs: [
       {
         name: 'node',
-        type: 'bytes32'
-      }
+        type: 'bytes32',
+      },
     ],
     name: 'resolver',
     outputs: [
       {
         name: 'resolverAddress',
-        type: 'address'
-      }
+        type: 'address',
+      },
     ],
     payable: false,
     stateMutability: 'view',
-    type: 'function'
-  }
+    type: 'function',
+  },
 ];
 const REGISTRAR_ADDRESS = '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e';
 
@@ -33,28 +33,25 @@ const RESOLVER_ABI = [
       {
         internalType: 'bytes32',
         name: 'node',
-        type: 'bytes32'
-      }
+        type: 'bytes32',
+      },
     ],
     name: 'contenthash',
     outputs: [
       {
         internalType: 'bytes',
         name: '',
-        type: 'bytes'
-      }
+        type: 'bytes',
+      },
     ],
     payable: false,
     stateMutability: 'view',
-    type: 'function'
-  }
+    type: 'function',
+  },
 ];
 
 // cache the resolver contracts since most of them are the public resolver
-function resolverContract(
-  resolverAddress: string,
-  provider: Provider
-): Contract {
+function resolverContract(resolverAddress: string, provider: Provider): Contract {
   return new Contract(resolverAddress, RESOLVER_ABI, provider);
 }
 
@@ -65,13 +62,9 @@ function resolverContract(
  */
 export default async function resolveENSContentHash(
   ensName: string,
-  provider: Provider
+  provider: Provider,
 ): Promise<string> {
-  const ensRegistrarContract = new Contract(
-    REGISTRAR_ADDRESS,
-    REGISTRAR_ABI,
-    provider
-  );
+  const ensRegistrarContract = new Contract(REGISTRAR_ADDRESS, REGISTRAR_ABI, provider);
   const hash = namehash(ensName);
   const resolverAddress = await ensRegistrarContract.resolver(hash);
   return resolverContract(resolverAddress, provider).contenthash(hash);

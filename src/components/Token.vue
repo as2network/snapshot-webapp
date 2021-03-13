@@ -5,7 +5,7 @@
       :src="url"
       :style="{
         width: `${size || 22}px`,
-        height: `${size || 22}px`
+        height: `${size || 22}px`,
       }"
       @error="error = true"
       class="circle border line-height-0"
@@ -21,7 +21,7 @@ export default {
   props: ['space', 'size', 'symbolIndex'],
   data() {
     return {
-      error: false
+      error: false,
     };
   },
   computed: {
@@ -36,7 +36,7 @@ export default {
     spaceAddress() {
       if (this.space) return formatBytes32String(this.space);
       return '';
-    }
-  }
+    },
+  },
 };
 </script>
